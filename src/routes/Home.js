@@ -1,6 +1,8 @@
 import { dbService } from "fbase";
 import React, { useEffect, useState } from "react";
 
+import ReactComponent from "component/reactComponent";
+
 const Home = (userObj) =>{
 
     //저장될 텍스트 state
@@ -29,13 +31,16 @@ const Home = (userObj) =>{
                 ...doc.data()
             }))
             setReactArr(reactsDb)
-            // console.log(reactsDb)
         })
     },[])
 
     const onSubmit = async(event) => {
 
         event.preventDefault();
+
+        if(!reacts.trim()){
+            return;
+        }
 
         await dbService.collection("reacts").add({
             reacts,
@@ -58,14 +63,12 @@ const Home = (userObj) =>{
     return (
         <div>
             <form>
-                <input value={reacts} onChange={onChange} type="text" placeholder="what's on your mind?" maxLength={120}></input>
+                <input value={reacts} onChange={onChange} type="text" placeholder="what's on your mind?" required maxLength={120}></input>
                 <input type="submit" onClick={onSubmit} value="react"></input>
             </form>
             <div>
                 {reactArr.map((react)=>(
-                    <div key={react.id}>
-                        <h4>{react.reacts}</h4>
-                    </div>
+                    <ReactComponent key={react.id} reactObj={react} isOwner={userObj.userObj.uid===react.creatorId}/>
                 ))}
             </div>
         </div>
