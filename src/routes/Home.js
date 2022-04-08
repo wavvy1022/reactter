@@ -8,23 +8,28 @@ const Home = (userObj) =>{
     //firebase database에 있는 텍스트 리스트
     const [reactArr, setReactArr] = useState([]);
 
-    const getReacts = async() =>{
-        const dbReacts = await dbService.collection("reacts").get();
-        dbReacts.forEach(document=>{
-            const reactsOjb = {
-                ...document.data(),
-                id : document.id
-            }
+    // const getReacts = async() =>{
+    //     const dbReacts = await dbService.collection("reacts").get();
+    //     dbReacts.forEach(document=>{
+    //         const reactsOjb = {
+    //             ...document.data(),
+    //             id : document.id
+    //         }
 
-            console.log(reactsOjb);
-            setReactArr((prev) => [reactsOjb, ...prev])
-        })
-    }
+    //         console.log(reactsOjb);
+    //         setReactArr((prev) => [reactsOjb, ...prev])
+    //     })
+    // }
 
     useEffect(()=>{
-        getReacts();
+        // getReacts();
         dbService.collection("reacts").onSnapshot(snapshot => {
-            console.log("sonmthing happened")
+            const reactsDb = snapshot.docs.map(doc => ({
+                id: doc.id,
+                ...doc.data()
+            }))
+            setReactArr(reactsDb)
+            // console.log(reactsDb)
         })
     },[])
 
