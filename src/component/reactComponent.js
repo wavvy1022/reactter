@@ -48,6 +48,11 @@ const ReactComponet = ({reactObj, isOwner}) => {
             ) : (
                 <>
                 <h4>{reactObj.reacts}</h4>
+                {reactObj.attachmentUrl&&(
+                    <img src={reactObj.attachmentUrl} width="100px" height="100px"/>
+                )
+
+                }
                 {isOwner?(
                     <div>
                         <button onClick={onDeleteClick}>delete</button>

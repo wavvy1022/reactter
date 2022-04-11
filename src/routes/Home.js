@@ -1,5 +1,6 @@
-import { dbService } from "fbase";
+import { dbService, storageService } from "fbase";
 import React, { useEffect, useState } from "react";
+import { v4 as uuidv4 } from 'uuid';
 
 import ReactComponent from "component/reactComponent";
 
@@ -44,14 +45,31 @@ const Home = (userObj) =>{
             return;
         }
 
-        await dbService.collection("reacts").add({
+        let attachmentUrl = "";
+        //파일 업로드 유무 분기처리
+        if(attachment!==""){
+            //firebase Storage 이미지 업로드 경로 및 파일명 uuid로 생성
+            const fileRef = storageService.ref().child(`${userObj.userObj.uid}/${uuidv4()}`)
+            //파일업로드
+            const response = await fileRef.putString(attachment, "data_url");
+            //firebaseStorage에 업로드 된 이미지 경로
+            attachmentUrl = await response.ref.getDownloadURL();
+        }
+
+        const reactObj = {
             reacts,
             createdAt : Date.now(),
-            creatorId : userObj.userObj.uid 
-        });
+            creatorId : userObj.userObj.uid,
+            attachmentUrl
+        }
+
+        await dbService.collection("reacts").add(reactObj);
         
         //input 초기화.
-        setReact("")
+        setReact("");
+
+        //이미지 초기화
+        setAttachment(null);
 
     }
 
