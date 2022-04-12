@@ -10,12 +10,12 @@ const AppRouter = ({isLoggedIn, userObj}) => {
     // const [isLoggedIn, setIsLoggedIn] = useState(true);
     return (
         <Router>
-            {isLoggedIn && <Navigation/>}
+            {isLoggedIn && <Navigation userObj={userObj}/>}
             <Routes>
                 {isLoggedIn ? 
                 <>
                 <Route exact={true} path="/" element={<Home userObj={userObj}/>}/> 
-                <Route exact={true} path="/profile" element={<Profile replace to="/"/>}/> 
+                <Route exact={true} path="/profile" element={<Profile userObj={userObj} replace to="/"/>}/> 
                 </>
                 : 
                 <>

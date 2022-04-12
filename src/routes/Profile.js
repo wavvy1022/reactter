@@ -1,19 +1,53 @@
-import { authService } from "fbase";
+import { authService, dbService } from "fbase";
 import { useNavigate } from "react-router-dom";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-const Profile = () => {
+const Profile = ({userObj}) => {
 
     const navigate = useNavigate();
+
+    const [newDisplayName, setNewDisplayName] = useState(userObj.displayName)
 
     const onLogOutClick = () => {
         authService.signOut();
         navigate("/");
     }
 
+    const getMyReacts = async() => {
+        const reacts = await dbService
+            .collection("reacts")
+            .where("creatorId","==",userObj.uid)
+            .orderBy("createdAt")
+            .get();
+
+        console.log(reacts.docs.map(doc => doc.data()));
+    }
+
+    const onChange = (event) => {
+        const {
+            target : {value}
+        } = event
+        setNewDisplayName(value);
+    }
+
+    const onSubmit = (event) => {
+        event.preventDefault();
+        if(userObj.displayName !== newDisplayName){
+            
+        }
+
+    }
+
+    useEffect(()=>{
+        getMyReacts();
+    },[])
+
     return (
         <div>
-            <span>profile</span>
+            <form onSubmit={onSubmit}>
+                <input type="text" placeholder="Display Name" onChange={onChange} value={newDisplayName}/>
+                <input type="submit" value="update Profile"/>
+            </form>
             <button onClick={onLogOutClick} Link="/">log out</button>
         </div>
     )

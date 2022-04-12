@@ -4,14 +4,14 @@ import { v4 as uuidv4 } from 'uuid';
 
 import ReactComponent from "component/reactComponent";
 
-const Home = (userObj) =>{
+const Home = ({userObj}) =>{
 
     //저장될 텍스트 state
     const [reacts, setReact] = useState("");
     //firebase database에 있는 텍스트 리스트
     const [reactArr, setReactArr] = useState([]);
     //file upload
-    const [attachment, setAttachment] = useState();
+    const [attachment, setAttachment] = useState("");
 
     // const getReacts = async() =>{
     //     const dbReacts = await dbService.collection("reacts").get();
@@ -49,7 +49,7 @@ const Home = (userObj) =>{
         //파일 업로드 유무 분기처리
         if(attachment!==""){
             //firebase Storage 이미지 업로드 경로 및 파일명 uuid로 생성
-            const fileRef = storageService.ref().child(`${userObj.userObj.uid}/${uuidv4()}`)
+            const fileRef = storageService.ref().child(`${userObj.uid}/${uuidv4()}`)
             //파일업로드
             const response = await fileRef.putString(attachment, "data_url");
             //firebaseStorage에 업로드 된 이미지 경로
@@ -59,7 +59,7 @@ const Home = (userObj) =>{
         const reactObj = {
             reacts,
             createdAt : Date.now(),
-            creatorId : userObj.userObj.uid,
+            creatorId : userObj.uid,
             attachmentUrl
         }
 
@@ -134,7 +134,7 @@ const Home = (userObj) =>{
             </form>
             <div>
                 {reactArr.map((react)=>(
-                    <ReactComponent key={react.id} reactObj={react} isOwner={userObj.userObj.uid===react.creatorId}/>
+                    <ReactComponent key={react.id} reactObj={react} isOwner={userObj.uid===react.creatorId}/>
                 ))}
             </div>
         </div>
