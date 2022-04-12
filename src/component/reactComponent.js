@@ -1,4 +1,4 @@
-import { dbService } from "fbase";
+import { dbService, storageService } from "fbase";
 import React, { useState } from "react";
 
 const ReactComponet = ({reactObj, isOwner}) => {
@@ -12,6 +12,8 @@ const ReactComponet = ({reactObj, isOwner}) => {
         if(ok){
             //delete
             await dbService.doc(`reacts/${reactObj.id}`).delete();
+            //트윗삭제시 storage에 있는 이미지 파일 삭제처리
+            await storageService.refFromURL(reactObj.attachmentUrl).delete();
         }
     }
 
