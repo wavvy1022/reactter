@@ -1,0 +1,12 @@
+{
+  "files": {
+    "main.js": "/reactter/static/js/main.bde90c5b.js",
+    "static/js/787.d83135b5.chunk.js": "/reactter/static/js/787.d83135b5.chunk.js",
+    "index.html": "/reactter/index.html",
+    "main.bde90c5b.js.map": "/reactter/static/js/main.bde90c5b.js.map",
+    "787.d83135b5.chunk.js.map": "/reactter/static/js/787.d83135b5.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.bde90c5b.js"
+  ]
+}
