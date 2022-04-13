@@ -2,7 +2,7 @@ import { authService, dbService } from "fbase";
 import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 
-const Profile = ({userObj}) => {
+const Profile = ({refreshUser,userObj}) => {
 
     const navigate = useNavigate();
 
@@ -20,7 +20,7 @@ const Profile = ({userObj}) => {
             .orderBy("createdAt")
             .get();
 
-        console.log(reacts.docs.map(doc => doc.data()));
+        // console.log(reacts.docs.map(doc => doc.data()));
     }
 
     const onChange = (event) => {
@@ -30,10 +30,13 @@ const Profile = ({userObj}) => {
         setNewDisplayName(value);
     }
 
-    const onSubmit = (event) => {
+    const onSubmit = async(event) => {
         event.preventDefault();
         if(userObj.displayName !== newDisplayName){
-            
+            await userObj.updateProfile({
+                displayName : newDisplayName
+            });
+            refreshUser();
         }
 
     }
