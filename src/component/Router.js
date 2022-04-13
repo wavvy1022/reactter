@@ -9,21 +9,32 @@ import Profile from "routes/Profile";
 const AppRouter = ({refreshUser, isLoggedIn, userObj}) => {
     // const [isLoggedIn, setIsLoggedIn] = useState(true);
     return (
-        <Router>
-            {isLoggedIn && <Navigation userObj={userObj}/>}
-            <Routes>
-                {isLoggedIn ? 
-                <>
-                <Route exact={true} path="/" element={<Home userObj={userObj}/>}/> 
-                <Route exact={true} path="/profile" element={<Profile refreshUser={refreshUser} userObj={userObj} replace to="/"/>}/> 
-                </>
-                : 
-                <>
-                <Route exact={true} path="/" element={<Auth/>}/>
-                </>
-                }
-            </Routes>
-        </Router>
+        <div
+            style={{
+                maxWidth: 890,
+                width: "100%",
+                margin: "0 auto",
+                marginTop: 80,
+                display: "flex",
+                justifyContent: "center",
+            }}
+        >
+            <Router>
+                {isLoggedIn && <Navigation userObj={userObj}/>}
+                <Routes>
+                    {isLoggedIn ? 
+                    <>
+                    <Route path="/" element={<Home userObj={userObj}/>}/> 
+                    <Route path="/profile" element={<Profile refreshUser={refreshUser} userObj={userObj} replace to="/"/>}/> 
+                    </>
+                    : 
+                    <>
+                    <Route path="/" element={<Auth/>}/>
+                    </>
+                    }
+                </Routes>
+            </Router>
+        </div>
     )
 }
 

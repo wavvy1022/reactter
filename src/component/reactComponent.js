@@ -1,5 +1,7 @@
 import { dbService, storageService } from "fbase";
 import React, { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash, faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 
 const ReactComponet = ({reactObj, isOwner}) => {
 
@@ -38,29 +40,41 @@ const ReactComponet = ({reactObj, isOwner}) => {
     }
 
     return(
-        <div>
+        <div className="nweet">
             {editing?(
                 <div>
-                    <form onSubmit={onSubmit}>
-                        <input onChange={onEditChange} value={newReact} placeholder="edit your reacts" type="text" required/>
-                        <input type="submit" value="Update React"/>
+                    <form onSubmit={onSubmit} className="container nweetEdit">
+                        <input 
+                            onChange={onEditChange} 
+                            value={newReact} 
+                            autoFocus 
+                            className="formInput" 
+                            placeholder="edit your reacts" 
+                            type="text" 
+                            required
+                        />
+                        <input type="submit" value="Update React" className="formBtn"/>
                     </form>
-                    <button onClick={toggleEditing}>cancel</button>
+                    <span onClick={toggleEditing} className="formBtn cancelBtn">
+                        Cancel
+                    </span>
                 </div>
             ) : (
                 <>
                 <h4>{reactObj.reacts}</h4>
-                {reactObj.attachmentUrl&&(
-                    <img src={reactObj.attachmentUrl} width="100px" height="100px"/>
-                )
-
-                }
-                {isOwner?(
-                    <div>
-                        <button onClick={onDeleteClick}>delete</button>
-                        <button onClick={toggleEditing}>edit</button>
-                    </div>
-                ) : null}
+                {reactObj.attachmentUrl && <img src={reactObj.attachmentUrl}/>}
+                {isOwner && (
+                    <>
+                        <div className="nweet__actions">
+                        <span onClick={onDeleteClick}>
+                            <FontAwesomeIcon icon={faTrash} />
+                        </span>
+                        <span onClick={toggleEditing}>
+                            <FontAwesomeIcon icon={faPencilAlt} />
+                        </span>
+                        </div>
+                    </>
+                )}
                 </>
             )}
 
