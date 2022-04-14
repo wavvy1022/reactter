@@ -43,7 +43,7 @@ const ReactFactory = ({userObj}) =>{
         setReact("");
 
         //이미지 초기화
-        setAttachment(null);
+        setAttachment("");
 
     }
 
@@ -77,7 +77,7 @@ const ReactFactory = ({userObj}) =>{
 
     //이미지 초기화
     const onClearAttachment = () => {
-        setAttachment(null)
+        setAttachment("")
     }
 
     return (
