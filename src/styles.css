@@ -152,6 +152,7 @@ form {
   color: #04aaff;
   cursor: pointer;
   text-align: center;
+  margin-bottom: 10%;
 }
 
 .factoryForm__clear span {
