@@ -1,7 +1,6 @@
 import { dbService } from "fbase";
 import React, { useEffect, useState } from "react";
 
-
 import ReactComponent from "component/ReactComponent";
 import ReactFactory from "component/ReactFactory";
 
@@ -24,8 +23,17 @@ const Home = ({userObj}) =>{
     // }
 
     useEffect(()=>{
-        // getReacts();
-        dbService.collection("reacts").onSnapshot(snapshot => {
+
+        // const q = query(collection(dbService, "reacts"), orderBy("createdAt", "desc"));
+        // onSnapshot(q, (snapshot) => {
+        //     const reactArr = snapshot.docs.map((doc) => ({
+        //         id: doc.id,
+        //         ...doc.data(),
+        //         }));
+        //     setReactArr(reactArr);
+        // });
+
+        dbService.collection("reacts").orderBy("createdAt","desc").onSnapshot(snapshot => {
             const reactsDb = snapshot.docs.map(doc => ({
                 id: doc.id,
                 ...doc.data()
