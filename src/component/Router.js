@@ -9,18 +9,18 @@ import Profile from "routes/Profile";
 const AppRouter = ({refreshUser, isLoggedIn, userObj}) => {
     // const [isLoggedIn, setIsLoggedIn] = useState(true);
     return (
-        <div
-            style={{
-                maxWidth: 890,
-                width: "100%",
-                margin: "0 auto",
-                marginTop: 80,
-                display: "flex",
-                justifyContent: "center",
-            }}
-        >
-            <Router>
-                {isLoggedIn && <Navigation userObj={userObj}/>}
+        <Router>
+            {isLoggedIn && <Navigation userObj={userObj}/>}
+            <div
+                style={{
+                    maxWidth: 890,
+                    width: "100%",
+                    margin: "0 auto",
+                    marginTop: 80,
+                    display: "flex",
+                    justifyContent: "center",
+                }}
+            >
                 <Routes>
                     {isLoggedIn ? 
                     <>
@@ -33,8 +33,8 @@ const AppRouter = ({refreshUser, isLoggedIn, userObj}) => {
                     </>
                     }
                 </Routes>
-            </Router>
-        </div>
+            </div>
+        </Router>
     )
 }
 
