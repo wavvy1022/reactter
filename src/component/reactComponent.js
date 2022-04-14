@@ -41,7 +41,7 @@ const ReactComponet = ({reactObj, isOwner}) => {
 
     return(
         <div className="nweet">
-            {editing?(
+            {editing ? (
                 <div>
                     <form onSubmit={onSubmit} className="container nweetEdit">
                         <input 
@@ -54,10 +54,11 @@ const ReactComponet = ({reactObj, isOwner}) => {
                             required
                         />
                         <input type="submit" value="Update React" className="formBtn"/>
+                        <span onClick={toggleEditing} className="formBtn cancelBtn">
+                            Cancel
+                        </span>
                     </form>
-                    <span onClick={toggleEditing} className="formBtn cancelBtn">
-                        Cancel
-                    </span>
+
                 </div>
             ) : (
                 <>
