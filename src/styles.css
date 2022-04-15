@@ -280,3 +280,9 @@ form {
   font-size: 5px;
   margin-top: 15px;
 }
+
+.userImg{
+  border-radius: 20px;
+  height: 30px;
+  width: 30px;
+}

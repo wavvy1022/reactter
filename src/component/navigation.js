@@ -25,7 +25,13 @@ const Navigation = ({userObj}) => {
                     fontSize: 12,
                 }}
                 >
-                <FontAwesomeIcon icon={faUser} color={"#04AAFF"} size="2x" />
+                {userObj.photoUrl==null ? 
+                    <FontAwesomeIcon icon={faUser} color={"#04AAFF"} size="2x" /> 
+                    : 
+                    <div>
+                        <img className="userImg" src={userObj.photoUrl}/>
+                    </div>
+                }
                 <span style={{ marginTop: 10 }}>
                     {userObj.displayName
                     ? `${userObj.displayName}의 Profile`
